@@ -5,14 +5,12 @@ import { sendChatMessage } from '../../lib/api'
 import { useRequireAuth } from '../../lib/hooks/useAuth'
 import clsx from 'clsx'
 import NotificationBanner from '../../components/NotificationBanner'
-
 interface Message {
   id: string
   role: 'user' | 'assistant'
   content: string
   imageUrl?: string 
 }
-
 export default function ChatPage() {
   const { token, loginMethod } = useRequireAuth()
   const [messages, setMessages] = useState<Message[]>([])
@@ -24,17 +22,13 @@ export default function ChatPage() {
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
-
   useEffect(() => {
     scrollToBottom()
   }, [messages])
-
   if (!token) return null
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
@@ -42,29 +36,24 @@ export default function ChatPage() {
       setImagePreview(URL.createObjectURL(file))
     }
   }
-
   const clearImage = () => {
     setImageFile(null)
     setImagePreview(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
-
   const sendMessage = async () => {
     if ((!input.trim() && !imageFile) || loading) return
-
     const newMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
       content: input.trim(),
       imageUrl: imagePreview || undefined
     }
-
     setMessages(prev => [...prev, newMessage])
     setInput('')
     const currentImageFile = imageFile
     clearImage()
     setLoading(true)
-
     try {
       const resp = await sendChatMessage(newMessage.content, sessionId, currentImageFile)
       if (resp.session_id) {
@@ -88,18 +77,15 @@ export default function ChatPage() {
       setLoading(false)
     }
   }
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       sendMessage()
     }
   }
-
   const handleSuggestedClick = (text: string) => {
     setInput(text)
   }
-
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] relative bg-gray-50/50">
       <div className="bg-emerald-50 border-b border-emerald-100 p-4 shrink-0 flex items-center justify-between shadow-sm z-10">
@@ -109,7 +95,7 @@ export default function ChatPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold leading-none tracking-tight">DermaBot Assistant</h1>
-            <p className="text-sm font-medium text-emerald-700 mt-1 leading-none">Powered by Gemini 1.5</p>
+            <p className="text-sm font-medium text-emerald-700 mt-1 leading-none">Powered by Gemini 3.1 Pro</p>
           </div>
         </div>
       </div>
@@ -209,7 +195,6 @@ export default function ChatPage() {
         )}
         <div ref={messagesEndRef} />
       </div>
-
       {/* Input Area */}
       <div className="shrink-0 bg-white border-t border-gray-200 p-4 pb-8 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
         <div className="max-w-4xl mx-auto">
