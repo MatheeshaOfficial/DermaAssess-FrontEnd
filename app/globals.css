@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors disabled:opacity-50 font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 font-medium;
+  }
+
+  .btn-google {
+    @apply bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 font-medium;
+  }
+
+  .btn-telegram {
+    @apply bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 font-medium;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm p-6;
+  }
+  
+  .input {
+    @apply w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-sky-500 focus:border-transparent outline-none transition-all;
+  }
+
+  .badge-low {
+    @apply bg-green-100 text-green-800 rounded-full text-xs font-semibold px-2.5 py-0.5 inline-flex items-center;
+  }
+  
+  .badge-medium {
+    @apply bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold px-2.5 py-0.5 inline-flex items-center;
+  }
+  
+  .badge-high {
+    @apply bg-red-100 text-red-800 rounded-full text-xs font-semibold px-2.5 py-0.5 inline-flex items-center;
+  }
+}
